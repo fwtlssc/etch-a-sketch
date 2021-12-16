@@ -1,0 +1,10 @@
+
+
+ .btn{
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 0.25rem;
+    &:hover{
+        background-color: rgba(0,0,0,0.3);
+    }
+}

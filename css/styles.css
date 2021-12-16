@@ -1,0 +1,93 @@
+@import url("../css/reset.css");
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 10px;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex-grow: 1;
+}
+
+p, a, button, input, label {
+  font-size: 1.6rem;
+}
+
+a {
+  text-decoration: none;
+}
+
+.grid {
+  display: grid;
+}
+
+.spacer-xl {
+  margin-top: 5rem;
+}
+
+.spacer-lg {
+  margin-top: 4rem;
+}
+
+.spacer-md {
+  margin-top: 3rem;
+}
+
+.spacer-sm {
+  margin-top: 2rem;
+}
+
+input {
+  padding: 0.5rem 1rem;
+}
+
+.btn {
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 0.25rem;
+}
+.btn:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container {
+  border: 1px solid #000;
+  width: 80vw;
+  height: 80vh;
+}
+
+.cell {
+  opacity: 0;
+}
+
+.reset-grid form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+@media (max-width: 600px) {
+  .reset-grid form {
+    flex-direction: column;
+  }
+}
+.reset-grid form input {
+  width: 10rem;
+  margin-left: 1.5rem;
+}
+
+/*# sourceMappingURL=styles.css.map */

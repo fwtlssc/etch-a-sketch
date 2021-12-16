@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etch A Sketch</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    
+    <main>
+        <div class="spacer-sm"></div>
+        <div class="reset-grid">
+            <form>
+                <label for="rows">
+                    <span>Rows</span>
+                    <input type="text" id="rows" name="rows">
+                </label>
+                <label for="rows">
+                    <span>Columns</span>
+                    <input type="text" id="columns" name="columns">
+                </label>
+                <button type="submit" class="btn">Reset</button>
+                <button type="button" class="btn btn-default">Default</button>
+            </form>
+        </div>
+        <div class="spacer-sm"></div>
+        <div class="container grid">
+
+        </div>
+        <div class="spacer-lg"></div>
+    </main>
+    <script>
+        let initialRowsNum = 16;
+        let initialColumnsNum = 16;
+        let resetForm = document.querySelector(".reset-grid form");
+        let max_rows = 100, max_columns = 100;
+        
+        let btnDefault = document.querySelector(".btn-default");
+        btnDefault.addEventListener("click",function(){
+            document.querySelector("input[name='rows']").value = initialRowsNum;
+            document.querySelector("input[name='columns']").value = initialColumnsNum;
+        })
+        
+        let init = () => {
+            createGrid(initialRowsNum, initialColumnsNum);
+            initResetForm();
+        }
+        let createGrid = (n,m) => {
+            let container = document.querySelector(".grid");
+            container.innerHTML = "";
+            let rowsString = "";
+            for(let i=0;i<n;i++){
+                rowsString += (i==0?"":" ") + "1fr";
+            }
+            container.style['grid-template-rows'] = rowsString;
+            let columnsString = "";
+            for(let i=0;i<m;i++){
+                columnsString += (i==0?"":" ") + "1fr";
+            }
+            container.style['grid-template-columns'] = columnsString;
+            createCells(container, n,m);
+        }
+
+        let createCells = (container, n, m) => {
+
+            for(let i=0;i<n;i++){
+                for(let j=0;j<m;j++){
+                    let cell = document.createElement("div");
+                    cell.classList.add("cell");
+                    container.appendChild(cell);
+                }
+            }
+            let cells = document.querySelectorAll(".cell");
+            cells.forEach((item) => {
+                item.addEventListener("mouseenter", function(e){
+                    e.target.classList.add("cell-hover");
+                    e.target.style['background-color'] = 
+                            `rgba(${randomColor()},${randomColor()},${randomColor()})`;
+                    let new_opacity = Math.min(parseFloat(getComputedStyle(e.target)['opacity']) + 0.1,1);
+                    e.target.style['opacity'] = `${new_opacity}`;
+                   
+                })
+                item.addEventListener("mouseleave", function(e){
+                    e.target.classList.remove("cell-hover");
+                })
+            })
+        }
+
+        let randomColor = () => Math.floor(256 * Math.random());
+
+        let initResetForm = () => {
+            resetForm.addEventListener("submit",function(e){
+                let rowsNum = parseInt(document.querySelector("input[name='rows']").value);
+                let columnsNum = parseInt(document.querySelector("input[name='columns']").value);
+                if(validateGridDimensions(rowsNum,columnsNum)){
+                    createGrid(rowsNum,columnsNum);
+                }
+                e.preventDefault();
+            });
+        }
+        let validateGridDimensions = (n, m) => {
+            return Number.isInteger(n) && Number.isInteger(m) &&
+                    n>=0 && m>=0 && n<=max_rows && m<=max_columns;
+        }
+
+
+        init();
+    </script>
+</body>
+</html>
